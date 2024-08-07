@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <title>main page</title>
+		<script src="jobs.js" defer></script>
+		<script src="navbar.js" defer></script>
+		<link rel="stylesheet" href="navbar.css">
+		<link rel="stylesheet" href="jobs.css">
+
+		<link rel="stylesheet" href="common.css">
+    </head>
+	
+    <body onload = "update_jobs();loadNavbar()">
+	
+		<div id = "navbar" onload = "loadNavbar()">navbar goes here</div>
+
+
+		<div>	
+			View job:<select name = "jobs" id = "job_select" onchange = "job_changed()"> </select>
+			<button id="add_job_button" onclick = 'window.location.href = "/static/add_job.html"'>Add Job...</button>
+			<button id="delete_job_button" onclick = "delete_job_handler()">Delete Job...</button>
+		</div>	
+								
+		<div class = "outlined">
+			<FORM id = "job_form">
+			<label for = 'job_number'>Job Number:</label> <input type="text" name="job_number" id="job_number" class ="colb"> 
+			<p><label for = 'client'>Client:<input type="text" name="client" id="client"></label></p>
+			<p><label for = 'project'>Project:<input type="text" name="project" id="project"></project></p>
+			<p>
+			<INPUT type="submit" value="Submit">
+			<INPUT type="reset" value = "Reset">
+			</p>
+			 </FORM>
+		</div>
+		
+		
+    </body>
+</html>
