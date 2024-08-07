@@ -1,0 +1,31 @@
+
+
+
+.horizontal-list {
+    list-style-type: none; /* Removes the default bullet points */
+    padding: 0;            /* Removes default padding */
+    margin: 0;             /* Removes default margin */
+    display: flex;         /* Uses flexbox to arrange items horizontally */
+}
+
+.horizontal-list li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    margin-right: 10px; /* Adds space between list items */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.horizontal-list li:last-child {
+    margin-right: 0; /* Removes the margin from the last item */
+}
+
+.horizontal-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.current-page {
+    background-color: green; /* Different background color for the active link */
+    color: white;              /* Color for the active link */
+    font-weight: bold;         /* Make the text bold */
+}
