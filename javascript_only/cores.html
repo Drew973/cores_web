@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <title>main page</title>
+		<script src="jobs.js" defer></script>
+		<script src="navbar.js" defer></script>
+		<link rel="stylesheet" href="navbar.css">
+		<link rel="stylesheet" href="common.css">
+    </head>
+	
+    <body onload = "loadNavbar();">
+	
+		<div id = "navbar">navbar goes here</div>
+
+		<div>
+			<p>Job:<select id = "jobSelect" onchange = "getCores()"> </select></p>
+			<p>Core:<select id = "coreSelect" onchange = "coreChanged()"> </select></p>
+
+		</div>
+								
+		<div>
+			<FORM id = "Coreform">
+				<fieldset class = 'editFieldset'>
+					<legend id = 'CoreLegend'>Edit Core </legend>
+					<p><label for = "job_number">job_number:<input type="text" name="job_number" id="job_number"></label></p>
+				<p><label for = "core_number">core_number:<input type="number" step=1 name="core_number" id="core_number"></label></p>
+				<p><label for = "sec">sec:<input type="text" name="sec" id="sec"></label></p>
+				<p><label for = "chainage">chainage:<input type="number" name="chainage" id="chainage"></label></p>
+				<p><button id = 'submitButton' onclick = 'submitJob()'>Add</button></p>
+			</fieldset>
+			</FORM>
+		</div>
+		
+
+		
+    </body>
+</html>

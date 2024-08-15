@@ -7,34 +7,32 @@
 		<script src="jobs.js" defer></script>
 		<script src="navbar.js" defer></script>
 		<link rel="stylesheet" href="navbar.css">
-		<link rel="stylesheet" href="jobs.css">
-
 		<link rel="stylesheet" href="common.css">
     </head>
 	
-    <body onload = "update_jobs();loadNavbar()">
+    <body onload = "updateJobs();loadNavbar();">
 	
-		<div id = "navbar" onload = "loadNavbar()">navbar goes here</div>
+		<div id = "navbar">navbar goes here</div>
 
-
-		<div>	
-			View job:<select name = "jobs" id = "job_select" onchange = "job_changed()"> </select>
-			<button id="add_job_button" onclick = 'window.location.href = "/static/add_job.html"'>Add Job...</button>
+		<div>
+			Job:<select id = "jobSelect" onchange = "jobChanged()"> </select>
+			<button id="add_job_button" onclick = 'addJobButtonHandler()'>Add Job...</button>
 			<button id="delete_job_button" onclick = "delete_job_handler()">Delete Job...</button>
-		</div>	
+		</div>
 								
-		<div class = "outlined">
+		<div>
 			<FORM id = "job_form">
-			<label for = 'job_number'>Job Number:</label> <input type="text" name="job_number" id="job_number" class ="colb"> 
+			<fieldset class = 'editFieldset'>
+			<legend id = 'jobLegend'>Edit Job </legend>
+			<p><label for = 'job_number'>Job Number:</label> <input type="text" name="job_number" id="job_number"></p>
 			<p><label for = 'client'>Client:<input type="text" name="client" id="client"></label></p>
 			<p><label for = 'project'>Project:<input type="text" name="project" id="project"></project></p>
-			<p>
-			<INPUT type="submit" value="Submit">
-			<INPUT type="reset" value = "Reset">
-			</p>
+			<p><button id = 'submitButton' onclick = 'submitJob()'>Add</button></p>
+			</fieldset>
 			 </FORM>
 		</div>
 		
+
 		
     </body>
 </html>

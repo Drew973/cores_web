@@ -1,6 +1,8 @@
-var host = "http://127.0.0.1:8000"
-//http://127.0.0.1:8000/static/jobs.html?job_number=other_job
+//http://127.0.0.1:8000/static/jobs.html
 
+
+
+addJobText = 'Add new job...';
 
 
 function setForm(form, data) {
@@ -18,67 +20,72 @@ function setForm(form, data) {
 
 
 
-function get_job_number()
+async function updateJob()
 {
-	return document.getElementById("job_select").value
-}
-
-
-
-async function update_job_handler()
-{
-	var jn = get_job_number();
+	var jn = getJobNumber();
 	const formData = new FormData(document.getElementById("job_form"));
 	try {
-		const response = await fetch(host+"/update_job/"+jn, {method: "POST",body: formData,});
+		const response = await fetch("/update_job/"+jn, {method: "POST",body: formData,});
 		console.log(await response);
-		update_jobs();
+		updateJobs();
 		} 
 	catch (e){
 		console.error(e);
 		}
+		update_job_form();
 }
 
-document.getElementById("job_form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  update_job_handler();
-});
+
+async function submitJob(){
+	var jn = getJobNumber();	
+	if (jn == addJobText){
+		addJob();
+		console.log('add job');
+		}
+	else {updateJob();}
+	}
 
 
-
-
-		
 
 async function delete_job_handler()
 	{
-	var jn = get_job_number();
+	var jn = getJobNumber();
 	if (confirm('Delete job "'+jn+'" and any cores with this job_number?')) 
 	{
-		fetch(host+'/delete_job/'+jn,{method: 'delete'})
+		fetch('/delete_job/'+jn,{method: 'delete'})
 		.then(response => response.json())
 		.then(data => {
 			console.log(data);
 			console.log('deleted job');
-			update_jobs();
+			updateJobs();
 			}
 			)
 	.catch(error => console.error(error));
 	}}
 
 
-async function update_job_form(job_number){
+async function update_job_form(){
+	job_number = getJobNumber();
+	if (job_number == addJobText){
+		document.getElementById("job_form").reset();
+		document.getElementById("jobLegend").innerHTML = addJobText;
+		document.getElementById("submitButton").innerHTML = 'Add';
+		return;
+	}
 //	console.log('update_job_form:'+job_number);
 	fetch("/get_job_details?job_number="+job_number)
 	.then(response => response.json())
 	.then(data => 
-		{console.log(data);
+		{//console.log(data);
 		setForm(document.getElementById("job_form"),data);
+		document.getElementById("jobLegend").innerHTML = 'Edit: '+data.job_number;
+		document.getElementById("submitButton").innerHTML = 'Submit changes';
 		})
 	.catch(error => console.error(error));
 	}
 		
 
-
+//sets options of select element sel to values. Then sets to default_opt if exists.
 function set_options(sel,values,default_opt){
 	arrOptions = [];
 	values.forEach((v) => arrOptions.push("<option>" + v + "</option>"))
@@ -90,33 +97,75 @@ function set_options(sel,values,default_opt){
 }
 
 
-function job_changed(){
-	jn = get_job_number();
-	window.location.href = "/static/jobs.html?job_number="+jn;
+function jobChanged(){
+	jn = getJobNumber();
+	setJobNumber(jn);
 }
 
 
-async function update_jobs()
-{
-	const urlParams = new URLSearchParams(window.location.search);
-	const current = urlParams.get('job_number');
-	toLoad = ' ';
-	i = 0;
+function setJobNumber(job){
+	//set url query parameter
+	const url = new URL(window.location.href);
+	url.searchParams.set('job_number', job);
+	window.history.pushState(null, '', url.toString());
+	//set select
+	e = document.getElementById("jobSelect");
+	e.value = job;
+	update_job_form();
+}
 	
-	var s = document.getElementById("job_select");
+
+function getJobNumber(){
+	return document.getElementById("jobSelect").value;
+}
+
+
+//update options of job number select
+async function updateJobs()
+{
+	cur = getJobNumber();
+	var s = document.getElementById("jobSelect");
 	fetch("/get_job_numbers")
 	.then(response => response.json())
 	.then(data => 
 		{
 	//	console.log(data);
-		i = set_options(s,data,current);
-		if (i != -1){update_job_form(data[i]);}
-		else {update_job_form(' ');}
+		set_options(s,[addJobText].concat(data),cur);
+		setJobFromUrl();
 		})
-		
 	.catch(error => {
 		console.error(error);		
-		update_job_form(' ')});
+		setJobFromUrl()});
 }
 
 
+//submit changes to database
+async function addJob(){
+	const formData = new FormData(document.getElementById("job_form"));
+//	console.log('add job');
+	//console.log(formData);
+	fetch("/add_job/", {method: "POST",body: formData,})
+	.then(response => response.json())
+	.then(data => 
+		{
+			console.log(data);
+			setJobNumber(data.job_number);
+		})
+	.catch(error => {
+		console.error(error);
+		alert(error);
+		})
+	}
+
+
+
+function addJobButtonHandler(){
+	setJobNumber(addJobText);
+	update_job_form();
+}
+
+function setJobFromUrl(){
+	const urlParams = new URLSearchParams(window.location.search);
+	const current = urlParams.get('job_number');
+	setJobNumber(current);
+}

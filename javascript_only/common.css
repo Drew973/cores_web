@@ -6,19 +6,13 @@ body {
 }
 
 
-.outlined {
-    display:table;
-	border:solid black 2px;
-	margin:0;
-	background-color:#A8DEDC;
-	display: grid;
-	grid-template-columns: auto auto 
+.editFieldset{
+	background-color:#A8DEDC;	
 }
 
 
-
-
-.colb{
-	color:red;
-	grid-column:2
+.btn {
+  text-decoration: none;
+  padding: 0.1rem;
+  border: 1px solid #333333;
 }

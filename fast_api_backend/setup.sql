@@ -1,6 +1,13 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 
 
+create table users(
+	username text primary key,
+	hashed_password text not null
+);
+
+
+
 create table if not exists job(
 	job_number text primary KEY
 	,project text

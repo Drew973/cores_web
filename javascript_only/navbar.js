@@ -3,8 +3,8 @@ function loadNavbar(){
 	nav.innerHTML = '<nav>\
 	<ul class="horizontal-list">\
 		<li><a href="jobs.html">Jobs</a></li>\
-		<li><a href="core.html">Cores</a></li>\
-		<li><a href="layer.html">Layers</a></li>\
+		<li><a href="cores.html">Cores</a></li>\
+		<li><a href="layers.html">Layers</a></li>\
 	</ul>\
 	</nav>\
 	';
