@@ -1,0 +1,34 @@
+session based:
+
+send username + client via form
+
+validate.
+if ok:
+	create session by adding session_id,time_limit,username... to server database.
+	send session_id to client. usually as cookie
+	cookies are sent with every request.
+	mobile apps can't use cookies?
+	can be used by things other than browser.
+	
+	
+Token based:
+	send username + client via form
+	validate.
+	if ok:
+		create token. has some data and signature.
+		signature means data has not been tampered with. Can store user id etc.
+		return token to client.
+		
+		
+	token stored in javascript etc.
+		Sent to endPoints with request.
+
+
+
+
+
+
+
+OAuth 2.0:
+	is a standard designed to allow a website or application to access resources hosted by other web apps on behalf of a user
+	token based.

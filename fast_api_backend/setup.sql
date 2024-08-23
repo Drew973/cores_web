@@ -5,6 +5,7 @@ create table users(
 	username text primary key,
 	hashed_password text not null
 );
+insert into users(username,hashed_password) values ('a','fakehashedb');
 
 
 

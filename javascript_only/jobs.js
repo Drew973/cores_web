@@ -3,7 +3,7 @@
 
 
 addJobText = 'Add new job...';
-
+token = '';
 
 function setForm(form, data) {
 	//console.log('setForm',data)	
@@ -73,7 +73,16 @@ async function update_job_form(){
 		return;
 	}
 //	console.log('update_job_form:'+job_number);
-	fetch("/get_job_details?job_number="+job_number)
+
+
+
+fetch("/get_job_details?job_number="+job_number, {
+  headers:
+  {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+    }
+})
 	.then(response => response.json())
 	.then(data => 
 		{//console.log(data);
@@ -169,3 +178,30 @@ function setJobFromUrl(){
 	const current = urlParams.get('job_number');
 	setJobNumber(current);
 }
+
+
+
+const loginForm = document.getElementById('loginForm'); 
+loginForm.addEventListener('submit', function(event) { 
+  event.preventDefault(); 
+  submitLogin();
+}); 
+
+
+
+function submitLogin(){
+	token = '';
+	const formData = new FormData(document.getElementById("loginForm"));
+	fetch("/login/", {method: "POST",body: formData,})
+	.then(response => response.json())
+	.then(data => 
+		{
+			console.log(data);
+			token = data;
+		})
+	.catch(error => {
+		console.error(error);
+		alert(error);
+		})
+		
+	}

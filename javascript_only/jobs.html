@@ -15,6 +15,17 @@
 		<div id = "navbar">navbar goes here</div>
 
 		<div>
+			<FORM id = "loginForm">
+			<fieldset class = 'editFieldset'>
+			<legend id = 'logonLegend'>Logon </legend>
+			<p><label for = 'username'>User:</label> <input type="text" name="username" id="username"></p>
+			<p><label for = 'password'>Password:<input type="text" name="password" id="password"></label></p>
+			<p>  <input type="submit" value="Log in"></p>
+			</fieldset>
+			 </FORM>
+		</div>
+
+		<div>
 			Job:<select id = "jobSelect" onchange = "jobChanged()"> </select>
 			<button id="add_job_button" onclick = 'addJobButtonHandler()'>Add Job...</button>
 			<button id="delete_job_button" onclick = "delete_job_handler()">Delete Job...</button>

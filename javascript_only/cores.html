@@ -15,6 +15,17 @@
 		<div id = "navbar">navbar goes here</div>
 
 		<div>
+			<FORM id = "logonForm">
+			<fieldset class = 'editFieldset'>
+			<legend id = 'logonLegend'>Logon </legend>
+			<p><label for = 'user'>User:</label> <input type="text" name="user" id="user"></p>
+			<p><label for = 'password'>Password:<input type="text" name="password" id="password"></label></p>
+			<p><button id = 'submitButton' onclick = 'submitLogon()'>Logon</button></p>
+			</fieldset>
+			 </FORM>
+		</div>
+
+		<div>
 			<p>Job:<select id = "jobSelect" onchange = "getCores()"> </select></p>
 			<p>Core:<select id = "coreSelect" onchange = "coreChanged()"> </select></p>
 
